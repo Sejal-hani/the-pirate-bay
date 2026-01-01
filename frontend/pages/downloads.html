@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Pirate Bay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Braah+One&display=swap" rel="stylesheet">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: "Braah One", Arial, sans-serif;
+      background-color: #e7dfcf;
+    }
+    .frame {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 12px solid black;
+      border-radius: 20px;
+      padding: 30px 40px;
+      background: #e7dfcf;
+      overflow: hidden;
+      z-index: 6;
+    }
+    .logo {
+      margin: -30px 0 0 -30px;
+      width: 25%;
+    }
+    .logo_shadow img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      margin: -100px 0 0 -20px;
+      max-width: 500px;
+      width: 90%;
+      opacity: 0.7;
+      z-index: 2;
+    }
+    .settings img {
+      position: absolute;
+      top: 15px;
+      right: 10px;
+      width: 10%;
+      cursor: pointer;
+      z-index: 3;
+    }
+    .search-container {
+      display: flex;
+      align-items: center;
+      max-width: 1100px;
+      margin: 25px -10px 0 70px;
+      position: relative;
+      z-index: 3;
+      top: -40px;
+    }
+    .search-container input {
+      font-family: inherit;
+      font-style: italic;
+      flex-grow: 1;
+      padding: 10px 20px;
+      font-size: 25px;
+      border: 3px solid #000;
+      border-right: none;
+      border-radius: 25px 0 0 25px;
+      outline: none;
+      background: #e7dfcf;
+      height: 30px;
+      box-sizing: border-box;
+    }
+    .search-container input::placeholder {
+      font-family: "Braah One";
+      font-size: 20px;
+    }
+    .search-button {
+      padding: 0 25px;
+      border: 3px solid #000;
+      border-radius: 0 25px 25px 0;
+      background: #000;
+      color: #e7dfcf;
+      font-family: inherit;
+      font-weight: bold;
+      font-size: 22px;
+      cursor: pointer;
+      height: 30px;
+      white-space: nowrap;
+    }
+    .skull {
+      position: absolute;
+      right: 100px;
+      top: 40px;
+      width: 50px;
+      z-index: 3;
+    }
+    .skull img {
+      width: 100%;
+      cursor: pointer;
+    }
+    .waves {
+      position: absolute;
+      bottom: -15px;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      z-index: -1;
+    }
+    .ellipse {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+    }
+    main {
+      position: relative;
+      z-index: 2;
+      overflow-y: auto;
+      margin-top: -25px;
+    }
+    .table-container {
+      max-height: 450px;
+      overflow-y: auto;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .table-container::-webkit-scrollbar {
+      display: none;
+    }
+    table {
+      width: 95%;
+      max-width: 1200px;
+      margin: 5px auto;
+      border-collapse: separate;
+      border-spacing: 2px;
+    }
+    th, td {
+      border: 2px solid #000;
+      padding: 6px 10px;
+      font-size: 0.9em;
+      text-align: left;
+      font-weight: bold;
+    }
+    th {
+      border-width: 2.5px;
+      color: #0000008b;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background-color: #a58c63;
+    }
+    td {
+      color: #0000009d;
+    }
+    th:first-child, td:first-child {
+      white-space: nowrap;
+      min-width: 150px;
+    }
+    th:nth-child(3), th:nth-child(4),
+    td:nth-child(3), td:nth-child(4) {
+      text-align: center;
+      width: 70px;
+    }
+    thead tr {
+      background-color: #c0b097;
+    }
+    tbody tr {
+      cursor: pointer;
+    }
+    tbody tr:nth-child(odd) {
+      background-color: #d1c1a9;
+    }
+    tbody tr:nth-child(even) {
+      background-color: #dbcec0;
+    }
+    .torrent-name {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .icons {
+      display: flex;
+      gap: 5px;
+      align-items: center;
+      min-width: 20px;
+    }
+    .icons img {
+      height: 16px;
+    }
+    .torrent-details {
+      font-size: 0.8em;
+      color: #555;
+      margin-top: 5px;
+    }
+    @media (max-width: 900px) {
+      .skull {
+        right: 20px;
+      }
+    }
+    @media (max-width: 768px) {
+      .frame {
+        border-width: 10px;
+        top: 5px; left: 5px; right: 5px; bottom: 5px;
+        padding: 15px;
+      }
+      .search-button {
+        padding: 0 10px;
+        font-size: 12px;
+      }
+      .skull {
+        top: 130px;
+        right: 45%;
+      }
+      .search-container {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        left: 0;
+      }
+      th, td {
+        font-size: 0.9em;
+        padding: 8px;
+        word-break: break-word;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <img src="images/full_logo.png" alt="Logo" class="logo">
+    <a href="settings.html" class="settings">
+      <img src="images/SETTINGS copy.png" alt="Settings Button">
+    </a>
+    <div class="logo_shadow">
+      <img src="images/shadow.png" alt="shadow">
+    </div>
+
+    <form action="description.html">
+      <div class="search-container">
+        <input type="text" placeholder="I am feeling lucky....">
+        <button type="submit" class="search-button">SEARCH DARK WEB</button>
+      </div>
+    </form>
+
+    <a href="home.html" class="skull">
+      <img src="images/Button.png" alt="Back Button">
+    </a>
+    
+    <img src="images/Ellipse 12.png" alt="Ellipse" class="ellipse">
+    <img src="images/image.png" alt="waves" class="waves">
+
+    <main>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Name (Order by: Uploaded, Size, ULed by, SE, LE)</th>
+              <th>SE</th>
+              <th>LE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr><tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+
+            <tr onclick="window.location.href='description.html';">
+              <td>Applications (Windows)</td>
+              <td>
+                <div class="torrent-info">
+                  <div class="torrent-name">
+                    <div class="icons">
+                      <img src="images/magnet.png" alt="Magnet">
+                    </div>
+                    Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+                  </div>
+                  <div class="torrent-details">Uploaded 02-24 2023, Size 2.88 GiB, ULed by Thumper-TM</div>
+                </div>
+              </td>
+              <td>2240</td>
+              <td>51</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

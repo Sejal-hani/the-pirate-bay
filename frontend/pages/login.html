@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Pirate Bay</title>
+
+
+    <style> 
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&display=swap');
+
+body {
+    margin: 0;
+    /* REMOVED the padding that created extra space around the container */
+    background-color: #e0d6c4;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* ADDED padding to the body itself to ensure some spacing on smaller screens */
+    padding: 20px 0;
+}
+
+.container {
+     position: fixed;
+  top: 10px;                /* gap from top */
+  left: 10px;               /* gap from left */
+  right: 10px;              /* gap from right */
+  bottom: 10px;             /* gap from bottom */
+
+  border: 12px solid black;
+  border-radius: 20px;
+  padding: 30px 40px;
+  background: #e7dfcf;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: #f5f5dc;
+    border-bottom: 5px solid #000;
+}
+
+
+.logo {
+  margin-left: -30px; 
+  margin-top: -30px;
+  width: 20%;
+} 
+
+.logo img {
+    height: 40px;
+    margin-right: 15px;
+}
+
+.logo h1, .settings a, .login-form h2 {
+    font-family: 'IM Fell English SC', serif;
+    color: #4a2c0f;
+    font-weight: bold;
+}
+
+.logo h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.settings a {
+    text-decoration: none;
+    font-size: 20px;
+}
+
+.background-elements {
+    position: absolute;
+    top: 75px;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.cloud {
+    position: absolute;
+    top: 20px;
+    left: 250px;
+    width: 100px;
+    opacity: 0.8;
+}
+
+.sea {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    height: 120px;
+}
+
+.ship {
+    position: absolute;
+    top: -20px;
+    right: 50px;
+    width: 180px;
+}
+
+main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px 0;
+    position: relative;
+    z-index: 2;
+}
+
+.character-art {
+    position: relative;
+    width: 45%;
+    height: 350px;
+}
+
+.palm-tree {
+    position: absolute;
+    width: 250px;
+    top: -50px;
+    left: -40px;
+    z-index: 3;
+}
+
+.pirate {
+    position: absolute;
+    width: 300px;
+    top: 30px;
+    left: 0;
+    z-index: 2;
+}
+
+.treasure-chest {
+    position: absolute;
+    width: 80px;
+    bottom: 50px;
+    left: 170px;
+    z-index: 4;
+}
+
+.login-form {
+    width: 45%;
+    text-align: center;
+}
+
+.login-form h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    border: 3px solid #000;
+    border-radius: 30px;
+    background-color: #f5f5dc;
+    font-size: 14px;
+    color: #888;
+    box-sizing: border-box;
+}
+
+.login-form input::placeholder {
+    color: #888;
+}
+
+.login-form button {
+    width: auto;
+    padding: 10px 30px;
+    border: 3px solid #000;
+    border-radius: 30px;
+    background-color: #f5f5dc;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0px 5px 0px 0px #000;
+    margin-top: 10px;
+}
+
+</style>
+
+
+
+
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <img src="images/full_logo.png" alt="Ship Icon">
+                <h1>THE PIRATE BAY</h1>
+            </div>
+            <div class="settings">
+                <a href="#">SETTINGS</a>
+            </div>
+        </header>
+
+        <div class="background-elements">
+            <img src="https://i.imgur.com/o50odPA.png" alt="Cloud" class="cloud">
+            <img src="https://i.imgur.com/GQT1LzB.png" alt="Sea" class="sea">
+            <img src="https://i.imgur.com/4g2dYpQ.png" alt="Ship" class="ship">
+        </div>
+
+        <main>
+            <div class="character-art">
+                <img src="https://i.imgur.com/97521pX.png" alt="Palm Tree" class="palm-tree">
+                <img src="https://i.imgur.com/9Rfsd30.png" alt="Pirate with Spyglass" class="pirate">
+                <img src="https://i.imgur.com/gK2x1l0.png" alt="Treasure Chest" class="treasure-chest">
+            </div>
+            <div class="login-form">
+                <h2>PIRATE RULES TO FOLLOW</h2>
+                <form>
+                    <input type="email" placeholder="iamgay@lgbt.com">
+                    <input type="text" placeholder="username - gayman404">
+                    <input type="password" placeholder="passwords that are simple">
+                    <button type="submit">SIGN IN PIRATE</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
+
+
+
+
+
+
+

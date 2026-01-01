@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Braah+One&display=swap" rel="stylesheet">
+  <title>The Pirate Bay - Description</title>
+  
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: #e7dfcf;
+}
+
+.container {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 12px solid black;
+  border-radius: 20px;
+  padding: 30px 40px;
+  background: #e7dfcf;
+  overflow: hidden;
+  z-index: 6;
+}
+
+.logo img{
+  margin-left: -30px; 
+  margin-top: -30px;
+  width: 25%;
+  z-index: 4;
+  position: relative; 
+} 
+
+.logo_shadow img{
+  position: absolute;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+  margin-left: -20px;
+  margin-top: -100px;
+  max-width: 500px;
+  height : auto;
+  width: 90%;
+  opacity: 70%;
+  z-index: 5;
+}
+
+.settings img{
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 10%;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.waves{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  z-index: -1;
+  margin-bottom: -15px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  max-width: 1100px;
+  margin: 25px -10px 0px 100px;
+  position: relative;
+  z-index: 3;
+  top: -40px;
+  left: -30px;
+}
+
+.search-container input {
+  font-family: Arial, Helvetica, sans-serif;
+  flex-grow: 1;
+  padding: 10px 20px;
+  font-size: 15px;
+  border: 3px solid #000;
+  border-right: none;
+  border-radius: 25px 0 0 25px;
+  outline: none;
+  background: #e7dfcf;
+  height: 30px;
+  box-sizing: border-box;
+}
+
+.search-container input::placeholder {
+  font-family: "Braah One";
+  font-size: 20px;
+}
+
+.search-button {
+  padding: 0 25px;
+  border: 3px solid #000;
+  border-radius: 25px 25px 25px 25px;
+  background: #000000;
+  color: #e7dfcf;
+  font-weight: bold;
+  font-size: 22px;
+  font-family: "Braah One", sans-serif;
+  cursor: pointer;
+  margin-left: -20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  white-space: nowrap;
+}
+
+.skull {
+  z-index: 3;
+  position: absolute;
+  right: 100px;
+  top: 40px;
+  width: 50px;
+}
+
+.skull img {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+  
+.title-box,
+.torrent-box,
+.torrent-description {
+  width: 100%;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.ellipse{
+  position: absolute;
+  z-index: -4;
+  right: 0;
+  bottom:0;
+}
+
+.title-box {
+  font-size: 20px;
+  font-family: Braah One, sans-serif;
+  color:#00000085;
+  margin-bottom: 2px;
+  background: #b09663e3;
+  padding: 10px;
+  border: 2.5px solid #000000;
+  height: 50px;
+  margin-top:-35px;
+}
+
+.torrent-box {
+  background: #d2c4a9;
+  padding: 12px;
+  border: 2.5px solid #000000;
+  border-radius: 0px;
+  box-sizing: border-box;
+  height: 400px;
+}
+
+.torrent-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  margin-bottom: 5px;
+  align-items: stretch;
+  font-size: 14px;
+  font-family: "Braah One", sans-serif;
+  color: #0000009d;
+}
+
+.left-info,
+.right-info {
+  flex: 1;
+  min-width: 900px;
+}
+
+.torrent-info p {
+  margin: 4px 0;
+}
+
+.info-hash {
+  font-size: 13px;
+  margin: 10px 0;
+  word-break: break-all;
+}
+
+.download-buttons {
+  margin: 15px 0;
+  display: flex;
+  gap: 10px;
+}
+
+.download-buttons button {
+  padding: 10px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  font-family: "Braah One", Arial, sans-serif;
+}
+
+.torrent-btn {
+  background: #222;
+  color: #fff;
+}
+
+.anon-btn {
+  background: #555;
+  color: #fff;
+}
+
+.torrent-description {
+  margin-top: 15px;
+  background: #e7dfcf;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 14px;
+  border: 2.5px solid #000000;
+  height: 170px;
+  overflow-y: auto;
+  font-family: "Braah One", sans-serif;
+  color: #515050;
+}
+
+.torrent-description a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.torrent-description a:hover {
+  text-decoration: underline;
+}
+
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo">
+      <a href="home.html">
+        <img src="images/full_logo.png" alt="Pirate Bay Logo">
+      </a>
+    </div>
+
+    <div class="settings">
+      <a href="settings.html">
+        <img src="images/SETTINGS copy.png" alt="Settings" />
+      </a>
+    </div>
+    
+    <div class="search-container">
+      <input type="text" placeholder="I am feeling lucky....">
+      <button class="search-button">
+        SEARCH DARK WEB
+      </button>
+    </div>
+
+    <a href="downloads.html" class="skull">
+      <img src="images/Button.png" alt="Back Button">
+    </a>
+
+    <a href="downloads.html" class="skull-link">
+      <img src="images/Button.png" alt="skull" class="skull">
+    </a>
+
+    <div class="title-box">
+      Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum]
+    </div>
+
+    <section class="torrent-box">
+      <div class="torrent-info">
+        <div class="left-info">
+          <p><b>Type:</b> Applications &gt; Windows</p>
+          <p><b>Files:</b> 266</p>
+          <p><b>Size:</b> 2.88 GiB (3090292256 Bytes)</p>
+          <p class="info-hash"><b>Info Hash:</b> BCD3F845E94C42C67730673947358B80470F3533</p>
+        </div>
+
+        <div class="right-info">
+          <p><b>Uploaded:</b> 2023-02-24 GMT</p>
+          <p><b>By:</b> ThumDerTM <img src="images/magnet.png" alt="User Icon" style="height:14px; vertical-align:middle;"></p>
+          <p><b>Seeders:</b> 2240</p>
+          <p><b>Leechers:</b> 51</p>
+          <p><b>Comments:</b> 0</p>
+        </div>
+      </div>
+
+      <div class="download-buttons">
+        <a href="https://thepibay.site/torrent/80730051/WinRAR_8.10_(x64)_FINAL">
+          <button class="torrent-btn">GET THIS TORRENT</button>
+          <button class="anon-btn">ANONYMOUS DOWNLOAD</button>
+        </a>
+      </div>
+
+      <img src="images/image.png" alt="waves" class="waves">
+      <div class="logo_shadow">
+        <img src="images/shadow.png" alt="shadow" >
+      </div>
+
+      <div class="torrent-description">
+        <p>Visit us at: <a href="http://techtools.net/">http://techtools.net/</a></p>
+        <p><a href="https://mgsaver.com/image/nCpk4">https://mgsaver.com/image/nCpk4</a></p>
+        <hr />
+        <p>
+          Adobe Photoshop 2023 24.2.0.315 (x64) + Crack [TheWindowsForum] 
+          Reimagine reality with Photoshop of designers, photographers, and artists...
+
+          Its everything you need to create, edit, and enhance your images and designs.
+          Bring ideas to life across desktop and iPad.
+
+          If you can think it, you can make it with Photoshop, the world’s best imaging and design software. Create and enhance photographs, illustrations, and 3D artwork. Design websites and mobile apps. Edit videos, simulate real-life paintings, and more. It’s everything you need to make any idea real.
+          Photoshop works seamlessly with other Adobe apps and services, including Adobe Illustrator, Adobe XD, Adobe Premiere Pro, and Adobe Lightroom.
+
+          <b>System Requirements:</b>
+          - Windows 10 (64-bit) version 1909 or later; Windows 11
+          - 8 GB or more of RAM (16 GB recommended)
+          - 4 GB or more of available hard-disk space; additional space required for installation
+          - 1280 x 800 display at 100% UI scaling (1920 x 1080 recommended)
+          - GPU with DirectX 12 support and 2 GB of GPU memory (4 GB recommended)
+          - Internet connection and registration are necessary for required software activation, validation of subscriptions, and access to online services.
+
+          This software may be subject to U.S. export control laws and regulations. By downloading or using this software, you agree to comply with all applicable U.S. export laws and regulations. The software may not be exported or re-exported (i) into any U.S.-embargoed countries or (ii) to anyone on the U.S. Treasury Department's list of Specially Designated Nationals or the U.S. Department of Commerce Denied Person's List or Entity List. You agree that you will not use this software for any purposes prohibited by U.S. law.
+        </p>
+      </div>
+      
+      <img src ="images/Ellipse 12.png" alt="Ellipse" class="ellipse"> 
+    </section>
+  </div>
+</body>
+</html>
